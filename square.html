@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script crossorigin="anonymous" src="https://casual-effects.com/codeheart/turtle/turtle.min.js?"></script>
+    <div class="row h-100">
+        <div class="col-sm-3 rounded-right my-auto bg-dark h-100  ">
+            <div id="accordion" class="bg-dark">
+
+                <div class="card">
+                    <div class="card-header bg-dark rounded">
+                        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                            Sierpinski Triangle
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <form action="triangle.html">
+                                <div class="form-group">
+                                    <label for="depth">Depth:</label>
+                                    <input type="number" class="form-control" value=0 name="triangleDepth">
+                                </div>
+                                <button type="submit" class="btn btn-info allign-right">Draw</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card ">
+                    <div class="card-header bg-dark rounded">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                            Sierpinski Square
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <form action="square.html">
+                                <div class="form-group">
+                                    <label for="depth">Depth:</label>
+                                    <input type="number" class="form-control" name="squareDepth">
+                                </div>
+                                <button type="submit" class="btn btn-info allign-right">Draw</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-dark rounded">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                            Snow Flake
+                        </a>
+                    </div>
+                    <div id="collapseThree" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <form action="snow.html">
+                                <button type="submit" class="btn btn-info allign-right">Draw</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-dark rounded">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+                            Mandel
+                        </a>
+                    </div>
+                    <div id="collapseFour" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <form action="mandel.html">
+                                <div class="form-group">
+                                    <label for="order">Order:</label>
+                                    <input type="number" class="form-control" name="mandelOrder">
+                                </div>
+                                <button type="submit" class="btn btn-info allign-right">Draw</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-9"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="math.js"></script>
+    <script type="text/ecmascript">
+
+        function box(box_size) {
+            setColor("black");
+            startFill("black");
+            for (let i = 0; i < 4; ++i) {
+                fd(box_size);
+                rt(90);
+            }
+            endFill();
+        }
+
+        function sierpinski_carpet(depth, box_size) {
+            if (depth >= 0) {
+                let x = getX();
+                let y = getY();
+                box(box_size);
+                setPosition(x - 2 * box_size / 3, y + box_size / 3);
+                sierpinski_carpet(depth - 1, box_size / 3);
+                setPosition(x - 2 * box_size / 3, y - 2 * box_size / 3);
+                sierpinski_carpet(depth - 1, box_size / 3);
+                setPosition(x - 2 * box_size / 3, y + 4 * box_size / 3);
+                sierpinski_carpet(depth - 1, box_size / 3);
+
+                setPosition(x + 4 * box_size / 3, y + box_size / 3);
+                sierpinski_carpet(depth - 1, box_size / 3);
+                setPosition(x + 4 * box_size / 3, y - 2 * box_size / 3);
+                sierpinski_carpet(depth - 1, box_size / 3);
+                setPosition(x + 4 * box_size / 3, y + 4 * box_size / 3);
+                sierpinski_carpet(depth - 1, box_size / 3);
+
+                setPosition(x + box_size / 3, y - 2 * box_size / 3);
+                sierpinski_carpet(depth - 1, box_size / 3);
+                setPosition(x + box_size / 3, y + 4 * box_size / 3);
+                sierpinski_carpet(depth - 1, box_size / 3);
+
+            }
+
+        }
+
+        var getParams = function (url) {
+            var params = {};
+            var parser = document.createElement('a');
+            parser.href = url;
+            var query = parser.search.substring(1);
+            var vars = query.split('&');
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                params[pair[0]] = decodeURIComponent(pair[1]);
+            }
+            return params;
+        }
+        let params = getParams(window.location.href);
+        let depth = parseInt(params['squareDepth']);
+        // clear("black");
+        setSpeed(Math.pow(3, depth))
+        pu()
+        setPosition(-100, -200)
+        sierpinski_carpet(depth, 400)
+
+
+    </script>
+</body>
+
+</html>
