@@ -135,12 +135,12 @@
         let params = getParams(window.location.href);
         let depth = parseInt(params['triangleDepth']);
         // let depth = parseInt(document.getElementById("triangleDepth").value);
-        setSpeed(2 * depth);
+        setSpeed(Math.pow(2,depth));
         setColor(0, 0, 0, 1);
 
         points = [[-350, -400], [150, 400], [650, -400]];
 
-        triangle(points, depth);
+        triangle(points, depth)
 
 
     </script>
